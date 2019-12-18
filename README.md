@@ -24,6 +24,29 @@ The following guides illustrate how to use some features concretely:
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
 
 
+
+###Setup Enable auth in mongodb
+* start mongo deamon with out authentication
+brew services start mongodb-community@4.2
+
+* add user for course3 database
+use admin
+db.createUser(
+  {
+    user: "myUserAdmin",
+    pwd: passwordPrompt(), // or cleartext password
+    roles: [ { role: "userAdmin", db: "course3" },{ role: "readWrite", db: "course3" }]
+  }
+)
+* start mongo deamon with auth enabled
+  mongod --auth --port 27017 --dbpath /usr/local/var/mongodb
+
+
+* connect with new User added
+      mongo --port 27017  --authenticationDatabase "course3" -u "course3" -pcourse3
+
+
+
 ###  Install instructions.
 
 a) create new database before starting springboot application
